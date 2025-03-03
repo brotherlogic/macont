@@ -5,7 +5,7 @@ go 1.24.0
 require (
 	github.com/brotherlogic/auth v0.14.0
 	github.com/brotherlogic/habridge v0.16.0
-	github.com/brotherlogic/mdb v0.113.0
+	github.com/brotherlogic/mdb v0.114.0
 	github.com/prometheus/client_golang v1.21.0
 	google.golang.org/grpc v1.70.0
 	google.golang.org/protobuf v1.36.5

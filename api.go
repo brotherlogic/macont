@@ -19,7 +19,7 @@ func (s *Server) Ping(ctx context.Context, req *pb.PingRequest) (*pb.PingRespons
 	defer conn.Close()
 
 	mdbclient := mdbpb.NewMDBServiceClient(conn)
-	entry, err := mdbclient.GetMachine(ctx, &mdbpb.GetMachineRequest{Name: req.GetMachineName()})
+	entry, err := mdbclient.GetMachine(ctx, &mdbpb.GetMachineRequest{Hostname: req.GetMachineName()})
 	if err != nil {
 		return nil, err
 	}
@@ -32,7 +32,7 @@ func (s *Server) Ping(ctx context.Context, req *pb.PingRequest) (*pb.PingRespons
 
 	haclient := hapb.NewHabridgeServiceClient(hconn)
 	state, err := haclient.GetState(ctx, &hapb.GetStateRequest{
-		Button: "pixel_7.location",
+		ButtonId: "pixel_7.location",
 	})
 	if err != nil {
 		return nil, err
