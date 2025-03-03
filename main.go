@@ -12,7 +12,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 
-	pb "github.com/brotherlogic/habridge/proto"
+	pb "github.com/brotherlogic/macont/proto"
 
 	auth_client "github.com/brotherlogic/auth/client"
 )
@@ -45,7 +45,7 @@ func main() {
 		log.Fatalf("gramophile is unable to listen on the grpc port %v: %v", *port, err)
 	}
 	gs := grpc.NewServer(grpc.UnaryInterceptor(authModule.AuthIntercept))
-	pb.RegisterHabridgeServiceServer(gs, s)
+	pb.RegisterMacontServiceServer(gs, s)
 	go func() {
 		if err := gs.Serve(lis); err != nil {
 			log.Fatalf("gramophile is unable to serve grpc: %v", err)
