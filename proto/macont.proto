@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package macont;
+
+option go_package = "github.com/brotherlogic/macont/proto";
+
+message PingRequest{
+    string machine_name = 1;
+}
+
+message PingResponse {
+    enum MachineState {
+      MACHINE_STATE_UNKNOWN = 0;
+      MACHINE_STATE_DO_NOTHING = 1;
+      MACHINE_STATE_SHUTDOWN = 2;
+    }
+    MachineState machine_state = 1;
+}
+
+service MacontService {
+    rpc Ping(PingRequest) returns (PingResponse);
+}
