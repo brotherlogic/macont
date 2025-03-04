@@ -33,7 +33,7 @@ func NewServer() *Server {
 
 var (
 	serverRequests = promauto.NewCounterVec(prometheus.CounterOpts{
-		Name: "githubridge_requests",
+		Name: "macont_requests",
 		Help: "The number of server requests",
 	}, []string{"method", "status"})
 )
