@@ -46,8 +46,8 @@ func (s *Server) ServerInterceptor(ctx context.Context,
 	serverRequests.With(
 		prometheus.Labels{
 			"status": status.Convert(err).Code().String(),
-			"method": info.FullMethod}
-			).Inc()
+			"method": info.FullMethod},
+	).Inc()
 	return h, err
 }
 
@@ -65,21 +65,21 @@ func main() {
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
 	if err != nil {
-		log.Fatalf("gramophile is unable to listen on the grpc port %v: %v", *port, err)
+		log.Fatalf("macont is unable to listen on the grpc port %v: %v", *port, err)
 	}
 	gs := grpc.NewServer(grpc.UnaryInterceptor(authModule.AuthIntercept))
 	pb.RegisterMacontServiceServer(gs, s)
 	go func() {
 		if err := gs.Serve(lis); err != nil {
-			log.Fatalf("gramophile is unable to serve grpc: %v", err)
+			log.Fatalf("macont is unable to serve grpc: %v", err)
 		}
-		log.Fatalf("gramophile has closed the grpc port for some reason")
+		log.Fatalf("macont has closed the grpc port for some reason")
 	}()
 
 	http.Handle("/metrics", promhttp.Handler())
 	err = http.ListenAndServe(fmt.Sprintf(":%v", *metricsPort), nil)
 	if err != nil {
-		log.Fatalf("gramophile is unable to serve metrics: %v", err)
+		log.Fatalf("macont is unable to serve metrics: %v", err)
 	}
 	log.Printf("Exiting after safe shutdown")
 }
