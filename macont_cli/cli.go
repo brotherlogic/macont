@@ -20,7 +20,8 @@ func main() {
 
 	name, err := os.Hostname()
 	if err != nil {
-		log.Fatalf("Getting hostname failed: %v", err)
+		log.Fatalf("Getting a hostname failed: %v", err)
+
 	}
 
 	mclient := pb.NewMacontServiceClient(conn)
