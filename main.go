@@ -7,7 +7,6 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
@@ -16,8 +15,6 @@ import (
 	"google.golang.org/grpc/status"
 
 	pb "github.com/brotherlogic/macont/proto"
-
-	auth_client "github.com/brotherlogic/auth/client"
 )
 
 var (
@@ -54,20 +51,13 @@ func (s *Server) ServerInterceptor(ctx context.Context,
 func main() {
 	flag.Parse()
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	authModule, err := auth_client.NewAuthInterceptor(ctx)
-	if err != nil {
-		log.Fatalf("Unable to register with auth: %v", err)
-	}
-	cancel()
-
 	s := NewServer()
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
 	if err != nil {
 		log.Fatalf("macont is unable to listen on the grpc port %v: %v", *port, err)
 	}
-	gs := grpc.NewServer(grpc.UnaryInterceptor(authModule.AuthIntercept))
+	gs := grpc.NewServer()
 	pb.RegisterMacontServiceServer(gs, s)
 	go func() {
 		if err := gs.Serve(lis); err != nil {
