@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"google.golang.org/grpc"
 
@@ -21,7 +22,7 @@ func (s *Server) Ping(ctx context.Context, req *pb.PingRequest) (*pb.PingRespons
 	mdbclient := mdbpb.NewMDBServiceClient(conn)
 	entry, err := mdbclient.GetMachine(ctx, &mdbpb.GetMachineRequest{Hostname: req.GetMachineName()})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unable to get machine: %w", err)
 	}
 
 	hconn, err := grpc.NewClient("habridge.habridge:8080")
@@ -35,7 +36,7 @@ func (s *Server) Ping(ctx context.Context, req *pb.PingRequest) (*pb.PingRespons
 		ButtonId: "pixel_7.location",
 	})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Unable to get ha state: %w", err)
 	}
 
 	if entry.GetDetails().GetStability() == mdbpb.MachineStability_MACHINE_STABILITY_SHUTDOWN_ON_LEAVE &&
