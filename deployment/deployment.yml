@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
         - name: macont
-          image: registry.brotherlogic-backend.com/brotherlogic/macont:0.11.0 # {"$imagepolicy": "flux-system:macont"}
+          image: registry.brotherlogic-backend.com/brotherlogic/macont:0.12.0 # {"$imagepolicy": "flux-system:macont"}
           ports:
             - containerPort: 8080
       imagePullSecrets:
