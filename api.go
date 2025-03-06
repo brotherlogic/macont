@@ -14,8 +14,7 @@ import (
 func (s *Server) Ping(ctx context.Context, req *pb.PingRequest) (*pb.PingResponse, error) {
 	conn, err := grpc.NewClient("mdb.mdb:8080")
 	if err != nil {
-
-		return nil, err
+		return nil, fmt.Errorf("Bad mdb %w", err)
 	}
 	defer conn.Close()
 
@@ -27,7 +26,7 @@ func (s *Server) Ping(ctx context.Context, req *pb.PingRequest) (*pb.PingRespons
 
 	hconn, err := grpc.NewClient("habridge.habridge:8080")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Bad ha: %w", err)
 	}
 	defer hconn.Close()
 
