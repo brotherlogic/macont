@@ -33,7 +33,7 @@ func (s *Server) Ping(ctx context.Context, req *pb.PingRequest) (*pb.PingRespons
 
 	haclient := hapb.NewHabridgeServiceClient(hconn)
 	state, err := haclient.GetState(ctx, &hapb.GetStateRequest{
-		ButtonId: "pixel_7.location",
+		ButtonId: "device_tracker.pixel_7",
 	})
 	if err != nil {
 		return nil, fmt.Errorf("Unable to get ha state: %w", err)
