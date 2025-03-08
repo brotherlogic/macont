@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -29,5 +30,11 @@ func main() {
 		MachineName: name,
 	})
 
-	fmt.Printf("%v [%v]\n", status, err)
+	if status.GetMachineState() == pb.PingResponse_MACHINE_STATE_SHUTDOWN {
+		fmt.Printf("Shutting down\n")
+		err = exec.Command("shutdown", "now").Run()
+		if err != nil {
+			log.Printf("Unable to shutdown: %v", err)
+		}
+	}
 }
