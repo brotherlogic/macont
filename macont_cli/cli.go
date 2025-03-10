@@ -36,5 +36,7 @@ func main() {
 		if err != nil {
 			log.Printf("Unable to shutdown: %v", err)
 		}
+	} else {
+		fmt.Printf("Not shutting down: %v\n", status)
 	}
 }
