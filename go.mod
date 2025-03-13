@@ -3,7 +3,6 @@ module github.com/brotherlogic/macont
 go 1.24.0
 
 require (
-	github.com/brotherlogic/auth v0.14.0
 	github.com/brotherlogic/habridge v0.16.0
 	github.com/brotherlogic/mdb v0.114.0
 	github.com/prometheus/client_golang v1.21.0
@@ -19,7 +18,7 @@ require (
 	github.com/prometheus/client_model v0.6.1 // indirect
 	github.com/prometheus/common v0.62.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
-	golang.org/x/net v0.35.0 // indirect
+	golang.org/x/net v0.36.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250227231956-55c901821b1e // indirect
