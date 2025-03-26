@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -42,12 +41,9 @@ func main() {
 	}
 
 	if pstat.GetMachineState() == pb.PingResponse_MACHINE_STATE_SHUTDOWN {
-		fmt.Printf("Shutting down\n")
 		err = exec.Command("shutdown", "now").Run()
 		if err != nil {
 			log.Printf("Unable to shutdown: %v", err)
 		}
-	} else {
-		fmt.Printf("Not shutting down: %v\n", pstat)
 	}
 }
