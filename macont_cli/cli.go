@@ -34,7 +34,7 @@ func main() {
 	if err != nil {
 		if status.Code(err) == codes.Unavailable {
 			// Fail closed if we can't reach the macont server
-			pstat = &pb.PingResponse{MachineState: pb.PingResponse_MACHINE_STATE_SHUTDOWN}
+			//pstat = &pb.PingResponse{MachineState: pb.PingResponse_MACHINE_STATE_SHUTDOWN}
 		} else {
 			log.Fatalf("Unable to handle response: %v", err)
 		}
